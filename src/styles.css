@@ -1,0 +1,118 @@
+:root {
+  color-scheme: light dark;
+  --bg: #fafafa;
+  --bg-elevated: #ffffff;
+  --text: #16181d;
+  --text-dim: #52606d;
+  --text-faint: #8894a0;
+  --border: #e2e5e9;
+  --accent: #2563eb;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1216;
+    --bg-elevated: #171b21;
+    --text: #f2f4f7;
+    --text-dim: #a2acba;
+    --text-faint: #6b7684;
+    --border: #262c35;
+    --accent: #5b9dff;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5rem;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+
+.site-brand {
+  font-weight: 700;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.25rem;
+}
+.site-nav a { color: var(--text-dim); }
+.site-nav a:hover { color: var(--text); text-decoration: none; }
+
+.hero {
+  padding: 3rem 0 2rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+}
+
+.hero-tagline {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.section {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card {
+  display: block;
+  padding: 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  color: inherit;
+}
+.card:hover { border-color: var(--accent); text-decoration: none; }
+.card h3 { margin-bottom: 0.35rem; }
+.card p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.site-footer {
+  padding: 2rem 0 3rem;
+  color: var(--text-faint);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+}

@@ -308,6 +308,16 @@ export function App() {
   const activeSection = useScrollSpy(NAV_LINKS.map((link) => link.href.slice(1)));
   const experienceLine = useFillProgress<HTMLDivElement>();
   const leadershipLine = useFillProgress<HTMLDivElement>();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 881px)");
+    const closeIfWide = () => {
+      if (mq.matches) setMenuOpen(false);
+    };
+    mq.addEventListener("change", closeIfWide);
+    return () => mq.removeEventListener("change", closeIfWide);
+  }, []);
 
   return (
     <div>
@@ -317,7 +327,7 @@ export function App() {
             <span className="site-brand-name">Jonah Karst</span>
             <span className="site-brand-kicker">Finance &amp; Business Analytics</span>
           </div>
-          <nav className="site-nav">
+          <nav className="site-nav site-nav-desktop">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -328,7 +338,7 @@ export function App() {
               </a>
             ))}
           </nav>
-          <div className="site-utility">
+          <div className="site-utility site-utility-desktop">
             <a href="/resume.pdf" download>
               Resume ↗
             </a>
@@ -336,8 +346,50 @@ export function App() {
               LinkedIn ↗
             </a>
           </div>
+          <button
+            className="menu-toggle"
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className="menu-toggle-bar"></span>
+            <span className="menu-toggle-bar"></span>
+            <span className="menu-toggle-bar"></span>
+          </button>
         </div>
       </header>
+
+      {menuOpen && (
+        <>
+          <div className="mobile-menu-backdrop" onClick={() => setMenuOpen(false)} />
+          <nav className="mobile-menu">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={activeSection === link.href.slice(1) ? "active" : ""}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="mobile-menu-divider" />
+            <div className="mobile-menu-utility">
+              <a href="/resume.pdf" download onClick={() => setMenuOpen(false)}>
+                Resume ↗
+              </a>
+              <a
+                href="https://www.linkedin.com/in/jonah-karst/"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setMenuOpen(false)}
+              >
+                LinkedIn ↗
+              </a>
+            </div>
+          </nav>
+        </>
+      )}
 
       <main className="page">
         <section className="hero">

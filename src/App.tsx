@@ -42,7 +42,7 @@ const EXPERIENCE: ExperienceEntry[] = [
             " business unit, back-testing it against the prior forecast to cut error by roughly ",
             { impact: "34%" },
             " and save ",
-            { impact: "3,400 hours" },
+            { impact: "400 hours" },
             " annually.",
           ],
           [

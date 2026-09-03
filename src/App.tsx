@@ -588,7 +588,7 @@ export function App() {
           </h2>
           <div className="project-grid" ref={projGridRef}>
             {PROJECTS.map((project, i) => (
-              <div key={project.name} className="project-card" ref={arrayRef(projCardRefs, i)}>
+              <div key={project.name} className={`project-card ${project.tone}`} ref={arrayRef(projCardRefs, i)}>
                 <h3>{project.name}</h3>
                 <p className={`project-kicker ${project.tone}`}>
                   {project.role} · {project.org}

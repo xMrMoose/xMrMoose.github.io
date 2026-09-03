@@ -183,6 +183,7 @@ a:hover { color: var(--text-tinted); }
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -446,11 +447,23 @@ a:hover { color: var(--text-tinted); }
 
 .leadership-list { display: flex; flex-direction: column; }
 .leadership-entry {
+  position: relative;
   display: grid;
   grid-template-columns: 208px 1fr;
   gap: 0.75rem 2.5rem;
-  padding: 1.75rem 0;
+  padding: 1.75rem 0 1.75rem 1.1rem;
   border-top: 1px solid var(--border-hairline);
+}
+.leadership-entry::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2rem;
+  bottom: 2rem;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent-green);
+  opacity: 0.4;
 }
 .leadership-date {
   font-family: var(--font-mono);
@@ -479,14 +492,26 @@ a:hover { color: var(--text-tinted); }
 
 .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
 .project-card {
-  padding: 1.4rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  padding: 1.7rem 1.5rem 1.5rem;
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--surface);
   opacity: 0;
   will-change: transform, opacity;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+}
+.project-card.red { background: radial-gradient(140% 160% at 100% 0%, oklch(72% 0.16 22 / 0.08) 0%, var(--surface) 60%); }
+.project-card.red::before { background: var(--accent-red); }
+.project-card.green { background: radial-gradient(140% 160% at 100% 0%, oklch(82% 0.14 145 / 0.08) 0%, var(--surface) 60%); }
+.project-card.green::before { background: var(--accent-green); }
 .project-card:hover { border-color: var(--accent); box-shadow: 0 12px 28px oklch(14% 0.01 250 / 0.35); }
 .project-card h3 { font-family: var(--font-serif); font-weight: 500; font-size: 18px; margin: 0 0 0.4rem; }
 .project-kicker { font-size: 12px; margin: 0 0 0.6rem; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -547,7 +572,7 @@ a:hover { color: var(--text-tinted); }
 /* ---- responsive ---- */
 
 @media (max-width: 899px) {
-  .site-header { padding: 14px 1.25rem 0; opacity: 1; pointer-events: auto; }
+  .site-header { padding: 14px 1.25rem 0; }
   .site-header-inner {
     grid-template-columns: 1fr auto;
     justify-items: stretch;
@@ -599,21 +624,27 @@ a:hover { color: var(--text-tinted); }
   .mobile-menu-utility { display: flex; flex-direction: column; }
   .mobile-menu-utility a { display: flex; align-items: center; gap: 6px; }
 
-  /* hero pin dropped to a static hero */
-  .hero-stage { height: auto; }
-  .hero-sticky { position: static; height: auto; padding: 96px 0 24px; }
-  .hero-body { flex-direction: column; text-align: center; gap: 32px; padding: 48px 32px; }
-  .hero-headline { font-size: 38px; }
+  /* hero stays pinned like desktop — it just lays out its content in a column,
+     tightened so the whole card still fits inside one short mobile viewport */
+  .hero-chrome { padding: 10px 16px; }
+  .hero-body { flex-direction: column; text-align: center; gap: 18px; padding: 28px 28px; }
+  .hero-headline { font-size: 32px; margin-bottom: 14px; }
+  .hero-subcopy .line1 { margin-bottom: 4px; }
+  .hero-photo { width: 132px; height: 165px; }
 
   /* experience cards already stack full-width in normal flow; just tighten gutters */
   .experience-header .section-heading,
   .timeline { padding-left: 26px; }
+  .experience-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  /* dot offset re-tuned to the 26px rail so it still centers on the timeline line */
+  .exp-dot { left: -30px; }
 
   /* leadership collapses to one column, date above role */
   .leadership-entry { grid-template-columns: 1fr; gap: 0.4rem; }
 
-  /* horizontal skills drift disabled, not just reduced */
-  .skills-row { transform: none !important; }
+  /* horizontal skills drift disabled, not just reduced — wrap instead of clipping chips */
+  .skills-wrap { overflow: visible; }
+  .skills-row { transform: none !important; flex-wrap: wrap; }
 }
 
 @media (min-width: 900px) {
@@ -623,8 +654,8 @@ a:hover { color: var(--text-tinted); }
 }
 
 @media (max-width: 640px) {
-  .hero-headline { font-size: 30px; }
-  .hero-photo { width: 168px; height: 210px; }
+  .hero-headline { font-size: 28px; }
+  .hero-photo { width: 112px; height: 140px; }
   .edu-card-top { flex-direction: column; }
   .edu-stats { gap: 24px; }
 }

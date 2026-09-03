@@ -60,44 +60,32 @@ function tick(refs: MotionRefs, state: LoopState, onSpyChange: ElRef<((id: strin
   const shift = real - sm;
   const narrow = window.innerWidth < NARROW_BREAKPOINT;
 
-  // hero pin
+  // hero pin — runs on every viewport width so mobile gets the same rise-and-fade into the nav
   const hp = clamp(sm / (vh * 0.45), 0, 1);
   const he = easeOut(hp);
   const heroFrame = refs.heroFrame.current;
   if (heroFrame) {
-    if (narrow) {
-      heroFrame.style.transform = "";
-      heroFrame.style.opacity = "";
-      heroFrame.style.filter = "";
-    } else {
-      const scale = 1 - 0.14 * he * MOTION_AMOUNT;
-      heroFrame.style.transform = `translate3d(0, ${(-90 * he * MOTION_AMOUNT).toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
-      heroFrame.style.opacity = String(clamp(1 - Math.max(0, hp - 0.45) / 0.4, 0, 1));
-      heroFrame.style.filter = hp > 0.5 ? `blur(${((hp - 0.5) * 8 * MOTION_AMOUNT).toFixed(2)}px)` : "none";
-    }
+    const scale = 1 - 0.14 * he * MOTION_AMOUNT;
+    heroFrame.style.transform = `translate3d(0, ${(-90 * he * MOTION_AMOUNT).toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
+    heroFrame.style.opacity = String(clamp(1 - Math.max(0, hp - 0.45) / 0.4, 0, 1));
+    heroFrame.style.filter = hp > 0.5 ? `blur(${((hp - 0.5) * 8 * MOTION_AMOUNT).toFixed(2)}px)` : "none";
   }
   const heroPhoto = refs.heroPhoto.current;
   if (heroPhoto) {
-    heroPhoto.style.transform = narrow ? "" : `translate3d(0, ${(-70 * he * MOTION_AMOUNT).toFixed(2)}px, 0)`;
+    heroPhoto.style.transform = `translate3d(0, ${(-70 * he * MOTION_AMOUNT).toFixed(2)}px, 0)`;
   }
   const arrow = refs.scrollArrow.current;
   if (arrow) {
-    arrow.style.opacity = narrow ? "" : String(clamp(1 - hp * 4, 0, 1));
+    arrow.style.opacity = String(clamp(1 - hp * 4, 0, 1));
   }
 
-  // nav reveal (kept always-visible on narrow viewports via CSS instead — see styles.css)
+  // nav reveal — hidden until the hero has mostly scrolled away, same on every viewport width
   const nav = refs.nav.current;
   if (nav) {
-    if (narrow) {
-      nav.style.opacity = "";
-      nav.style.transform = "";
-      nav.style.pointerEvents = "";
-    } else {
-      const np = clamp((hp - 0.42) / 0.22, 0, 1);
-      nav.style.opacity = String(np);
-      nav.style.transform = `translate3d(0, ${((1 - np) * -14).toFixed(2)}px, 0) scale(${(0.97 + 0.03 * np).toFixed(4)})`;
-      nav.style.pointerEvents = np > 0.6 ? "auto" : "none";
-    }
+    const np = clamp((hp - 0.42) / 0.22, 0, 1);
+    nav.style.opacity = String(np);
+    nav.style.transform = `translate3d(0, ${((1 - np) * -14).toFixed(2)}px, 0) scale(${(0.97 + 0.03 * np).toFixed(4)})`;
+    nav.style.pointerEvents = np > 0.6 ? "auto" : "none";
   }
   const navProgress = refs.navProgress.current;
   if (navProgress) {

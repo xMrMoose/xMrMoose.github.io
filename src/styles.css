@@ -401,7 +401,7 @@ a:hover { color: var(--text-tinted); }
 
 .exp-dot {
   position: absolute;
-  left: -34px;
+  left: -35px;
   top: 30px;
   width: 10px;
   height: 10px;
@@ -637,7 +637,7 @@ a:hover { color: var(--text-tinted); }
   .timeline { padding-left: 26px; }
   .experience-header { flex-direction: column; align-items: flex-start; gap: 8px; }
   /* dot offset re-tuned to the 26px rail so it still centers on the timeline line */
-  .exp-dot { left: -30px; }
+  .exp-dot { left: -31px; }
 
   /* leadership collapses to one column, date above role */
   .leadership-entry { grid-template-columns: 1fr; gap: 0.4rem; }

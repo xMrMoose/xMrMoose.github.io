@@ -161,9 +161,9 @@ function tick(refs: MotionRefs, state: LoopState, onSpyChange: ElRef<((id: strin
     const pp = clamp((vh * 0.94 - (r.top + shift)) / (vh * 0.62), 0, 1);
     projs.forEach((c, i) => {
       if (!c) return;
-      const t = easeOut(clamp((pp - i * 0.12) / 0.8, 0, 1));
+      const t = easeOut(clamp((pp - i * 0.16) / 0.8, 0, 1));
       c.style.opacity = String(0.04 + 0.96 * t);
-      c.style.transform = `translate3d(0, ${((1 - t) * 34 * MOTION_AMOUNT).toFixed(2)}px, 0) scale(${(0.985 + 0.015 * t).toFixed(4)})`;
+      c.style.transform = `translate3d(0, ${((1 - t) * 70 * MOTION_AMOUNT).toFixed(2)}px, 0) scale(${(0.88 + 0.12 * t).toFixed(4)})`;
     });
   }
 

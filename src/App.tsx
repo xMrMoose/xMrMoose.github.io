@@ -518,7 +518,7 @@ export function App() {
               Experience
             </h2>
             <span className="experience-count" ref={scrubRef("exp-count", 0.25)}>
-              04 ROLES · 2021 – 2026
+              2021 – 2026
             </span>
           </div>
           <div className="timeline" ref={expTimelineRef}>
